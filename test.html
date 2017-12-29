@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-animate.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+	<style type="text/css">
+		.animation {
+		  transition: all linear 0.5s;
+		  background-color: lightblue;
+		  height: 100px;
+		}
+
+		.ng-hide {
+		  height: 0;
+		}		
+	</style>
+</head>
+<body>
+
+<div ng-app="myApp" ng-controller="myCtrl" ng-init="inittName='init data'; person={firstName:'From Array',lastName:'Data taken'}; points=[1,15,19,2,40]"  w3-test-directive> 
+	
+	<p>Name : <input type="text" ng-model="name"></p>
+	<p>Hello {{name}}</p>
+   	<p ng-bind="name"></p>
+   	<p>data from ng-init: <span ng-bind="inittName"></span></p>
+
+  	==================================================	
+  	<br><br>
+	First Name from script: <input type="text" ng-model="firstName"><br>
+	Last Name fron script: <input type="text" ng-model="lastName"><br>
+	Full Name: {{firstName + " " + lastName}} <br>
+	Full name from function return: {{fullName()}}
+	<br>
+	<p>ng-init Array data: {{ person.firstName }} {{ person.lastName }} {{ points[2] }}</p>
+
+  	==================================================Email and click change
+  	<br><br>
+
+	<form name="myForm">
+	    Email:
+	    <input type="email" name="myAddress" ng-model="text">
+	    <span ng-show="myForm.myAddress.$error.email">Not a valid e-mail address</span>
+	</form>  
+	<p ng-click="changeName()"> {{ youData }} </p>
+
+  	==================================================	
+  	<br>	
+	<p>Cuotom filter: <input type="text" ng-model="filter"></p>  	
+	<p><b>Data fron js file: </b></p>
+	<ul>
+	  <li ng-repeat="x in name_list | filter:'i' | filter: filter">
+	    {{ x.name + ', ' + x.country }}
+	  </li>
+	</ul>
+
+  	==================================================	
+  	<br><br>	
+	<table border="1" width="100%">
+	  <tr>
+	    <th ng-click="orderByMe('name')">Name</th>
+	    <th ng-click="orderByMe('country')">Country</th>
+	  </tr>
+	  <tr ng-repeat="x in name_list | orderBy:myOrderBy">
+	    <td>{{x.name}}</td>
+	    <td>{{x.country}}</td>
+	  </tr>
+	</table>
+	<br>	
+  	==================================================Service example
+  		
+	<p>Location sevice (Site link):  <b>{{myUrl}}</b></p>
+	<p>HTTP service (Message fron another html page): <b>{{myWelcome}} </b></p>
+	<p> Timeout example: {{ timeoutText }} </p>
+	<p> Interval service example {{ theTime }}  <span style="color: #aaa;">comment: The $interval service runs a function every specified millisecond.</span></p>   
+	<p> Custom service example to conver dec to hex: {{ cutomService }} </p>
+	<p> Custom service example to conver dec to hex with custom filter:  </p>
+		<ul>
+		  <li ng-repeat="x in counts">{{x | myFilter}}</li>
+		</ul>		
+
+  	==================================================Animation example
+  	<p>Click to Hide the DIV: <input type="checkbox" ng-model="myCheck"></p>
+	<div ng-hide="myCheck" class="animation"></div>
+	
+	<br>	
+  	==================================================Routing: Page view without loading 
+  	<p><a href="#/!">Main</a></p>
+	<a href="#!red">Red</a>
+	<a href="#!green">Green</a>
+	<a href="#!blue">Blue</a>
+	<div ng-view></div>
+
+	<br>	
+  	==================================================Routing: Page view without loading 	
+
+
+
+</div>
+
+
+<script src="Controller.js"></script>
+<script>
+
+/*app.directive("w3TestDirective", function() {
+    return {
+        template : "I was made in a directive constructor!"
+    };
+});*/
+</script>
+
+</body>
+</html>
